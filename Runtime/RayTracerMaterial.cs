@@ -39,7 +39,8 @@ namespace PixelsForGlory.RayTracing
 
         private void OnEnable()
         {
-            Initialize();
+            if(Application.isPlaying)
+                Initialize();
         }
 
         private void Initialize()
@@ -119,6 +120,8 @@ namespace PixelsForGlory.RayTracing
 
         public void Update()
         {
+            if(!Application.isPlaying)
+                return;
             if(_albedoTextureMonitor.CheckForUpdates() && albedoTexture != null)
             {
                 PixelsForGlory.RayTracing.RayTracingPlugin.AddTexture(albedoTexture.GetInstanceID(), albedoTexture.GetNativeTexturePtr());

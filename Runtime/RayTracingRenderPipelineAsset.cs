@@ -10,6 +10,7 @@ namespace PixelsForGlory.RayTracing
     {
         protected override RenderPipeline CreatePipeline()
         {
+            PixelsForGlory.RayTracing.RayTracingPlugin.SetDebug();
             PixelsForGlory.RayTracing.RayTracingPlugin.SetShaderFolder(Path.GetFullPath("Packages/com.pixelsforglory.raytracing/Runtime/Plugins/x86_64"));
             PixelsForGlory.RayTracing.RayTracingPlugin.MonitorShaders(Path.GetFullPath("Packages/com.pixelsforglory.raytracing/Runtime/Plugins/x86_64"));
             PixelsForGlory.RayTracing.RayTracingPlugin.Prepare();

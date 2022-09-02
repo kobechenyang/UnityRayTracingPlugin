@@ -5,55 +5,72 @@ using UnityEngine;
 
 namespace PixelsForGlory.RayTracing
 {
+    [PluginAttr("RayTracingPlugin")]
     internal static class RayTracingPlugin
     {
-        [DllImport("RayTracingPlugin", CharSet = CharSet.Unicode)]
-        public static extern int SetShaderFolder(string shaderFolder);
+        [PluginFunctionAttr("SetShaderFolder")] 
+        public static SetShaderFolderDel SetShaderFolder = null;
+        public delegate int SetShaderFolderDel(string shaderFolder);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern int SetRenderTarget(int cameraInstanceId, int unityTextureFormat, int width, int height, IntPtr destination);
+        [PluginFunctionAttr("SetRenderTarget")]
+        public static SetRenderTargetDel SetRenderTarget = null;
+        public delegate int SetRenderTargetDel(int cameraInstanceId, int unityTextureFormat, int width, int height, IntPtr destination);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern int AddSharedMesh(int sharedMeshInstanceId, IntPtr vertices, IntPtr normals, IntPtr tangets, IntPtr uvs, int vertexCount, IntPtr indices, int indexCount);
+        [PluginFunctionAttr("AddSharedMesh")]
+        public static AddSharedMeshDel AddSharedMesh = null;
+        public delegate int AddSharedMeshDel(int sharedMeshInstanceId, IntPtr vertices, IntPtr normals, IntPtr tangets, IntPtr uvs, int vertexCount, IntPtr indices, int indexCount);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern int AddTlasInstance(int gameObjectInstanceId, int sharedMeshInstanceId, int materialInstanceId, IntPtr l2wMatrix, IntPtr w2lMatrix);
+        [PluginFunctionAttr("AddTlasInstance")]
+        public static AddTlasInstanceDel AddTlasInstance = null;
+        public delegate int AddTlasInstanceDel(int gameObjectInstanceId, int sharedMeshInstanceId, int materialInstanceId, IntPtr l2wMatrix, IntPtr w2lMatrix);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void UpdateTlasInstance(int gameObjectInstanceId, int materialInstanceId, IntPtr l2wMatrix, IntPtr w2lMatrix);
+        [PluginFunctionAttr("UpdateTlasInstance")]
+        public static UpdateTlasInstanceDel UpdateTlasInstance = null;
+        public delegate void UpdateTlasInstanceDel(int gameObjectInstanceId, int materialInstanceId, IntPtr l2wMatrix, IntPtr w2lMatrix);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void RemoveTlasInstance(int gameObjectInstanceId);
+        [PluginFunctionAttr("RemoveTlasInstance")]
+        public static RemoveTlasInstanceDel RemoveTlasInstance = null;
+        public delegate void RemoveTlasInstanceDel(int gameObjectInstanceId);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void Prepare();
+        [PluginFunctionAttr("Prepare")]
+        public static PrepareDel Prepare = null;
+        public delegate void PrepareDel();
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void ResetPipeline();
+        [PluginFunctionAttr("ResetPipeline")]
+        public static ResetPipelineDel ResetPipeline = null;
+        public delegate void ResetPipelineDel();
         
-        [DllImport("RayTracingPlugin")]
-        public static extern void UpdateCamera(int cameraInstanceId, IntPtr camPos, IntPtr camDir, IntPtr camUp, IntPtr camSide, float camNear, float camFar, float camFov);
+        [PluginFunctionAttr("UpdateCamera")]
+        public static UpdateCameraDel UpdateCamera = null;
+        public delegate void UpdateCameraDel(int cameraInstanceId, IntPtr camPos, IntPtr camDir, IntPtr camUp, IntPtr camSide, float camNear, float camFar, float camFov);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void UpdateSceneData(IntPtr color);
+        [PluginFunctionAttr("UpdateSceneData")]
+        public static UpdateSceneDataDel UpdateSceneData = null;
+        public delegate void UpdateSceneDataDel(IntPtr color);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern int AddLight(int lightInstanceId, float x, float y, float z, float r, float g, float b, float bounceIntensity, float intensity, float range, float spotAngle, int type, bool enabled);
+        [PluginFunctionAttr("AddLight")]
+        public static AddLightDel AddLight = null;
+        public delegate int AddLightDel(int lightInstanceId, float x, float y, float z, float r, float g, float b, float bounceIntensity, float intensity, float range, float spotAngle, int type, bool enabled);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void UpdateLight(int lightInstanceId, float x, float y, float z, float r, float g, float b, float bounceIntensity, float intensity, float range, float spotAngle, int type, bool enabled);
+        [PluginFunctionAttr("UpdateLight")]
+        public static UpdateLightDel UpdateLight = null;
+        public delegate void UpdateLightDel(int lightInstanceId, float x, float y, float z, float r, float g, float b, float bounceIntensity, float intensity, float range, float spotAngle, int type, bool enabled);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void RemoveLight(int lightInstanceId);
+        [PluginFunctionAttr("RemoveLight")]
+        public static RemoveLightDel RemoveLight = null;
+        public delegate void RemoveLightDel(int lightInstanceId);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern int AddTexture(int textureInstanceId, IntPtr texture);
+        [PluginFunctionAttr("AddTexture")]
+        public static AddTextureDel AddTexture = null;
+        public delegate int AddTextureDel(int textureInstanceId, IntPtr texture);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void RemoveTexture(int textureInstanceId);
+        [PluginFunctionAttr("RemoveTexture")]
+        public static RemoveTextureDel RemoveTexture = null;
+        public delegate void RemoveTextureDel(int textureInstanceId);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern int AddMaterial(int materialInstanceId,
+        [PluginFunctionAttr("AddMaterial")]
+        public static AddMaterialDel AddMaterial = null;
+        public delegate int AddMaterialDel(int materialInstanceId,
                                              float albedo_r, float albedo_g, float albedo_b,
                                              float emission_r, float emission_g, float emission_b,
                                              float transmittance_r, float transmittance_g, float transmittance_b,
@@ -72,8 +89,9 @@ namespace PixelsForGlory.RayTracing
                                              int roughnessTextureInstanceId,
                                              bool ambientOcclusionTextureSet,
                                              int ambientOcclusionTextureInstanceId);
-        [DllImport("RayTracingPlugin")]
-        public static extern void UpdateMaterial(int materialInstanceId,
+        [PluginFunctionAttr("UpdateMaterial")]
+        public static UpdateMaterialDel UpdateMaterial = null;
+        public delegate void UpdateMaterialDel(int materialInstanceId,
                                                  float albedo_r, float albedo_g, float albedo_b,
                                                  float emission_r, float emission_g, float emission_b,
                                                  float transmittance_r, float transmittance_g, float transmittance_b,
@@ -93,8 +111,9 @@ namespace PixelsForGlory.RayTracing
                                                  bool ambientOcclusionTextureSet,
                                                  int ambientOcclusionTextureInstanceId);
 
-        [DllImport("RayTracingPlugin")]
-        public static extern void RemoveMaterial(int materialInstanceId);
+        [PluginFunctionAttr("RemoveMaterial")]
+        public static RemoveMaterialDel RemoveMaterial = null;
+        public delegate void RemoveMaterialDel(int materialInstanceId);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct RayTracerStatistics
@@ -114,16 +133,37 @@ namespace PixelsForGlory.RayTracing
             public uint CombinedImageSamplerCount;
         }
 
-        [DllImport("RayTracingPlugin")]
-        public static extern RayTracerStatistics GetRayTracerStatistics();
+        [PluginFunctionAttr("GetRayTracerStatistics")]
+        public static GetRayTracerStatisticsDel GetRayTracerStatistics = null;
+        public delegate RayTracerStatistics GetRayTracerStatisticsDel();
 
-        [DllImport("RayTracingPlugin")]
-        public static extern IntPtr GetEventFunc();
+        [PluginFunctionAttr("GetEventFunc")]
+        public static GetEventFuncDel GetEventFunc = null;
+        public delegate IntPtr GetEventFuncDel();
 
-        [DllImport("RayTracingPlugin")]
-        public static extern IntPtr GetEventAndDataFunc();
+        [PluginFunctionAttr("GetEventAndDataFunc")]
+        public static GetEventAndDataFuncDel GetEventAndDataFunc = null;
+        public delegate IntPtr GetEventAndDataFuncDel();
+
+        [PluginFunctionAttr("SetDebugFunction")]
+        public static SetDebugFunctionDel SetDebugFunction = null;
+        public delegate void SetDebugFunctionDel(IntPtr fp);
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void DebugDelegate(string str);
+        static void CallBackFunction(string str) { Debug.Log(str); }
 
         private static string RootDir;
+
+        public static void SetDebug()
+        {
+            DebugDelegate callback_delegate = new DebugDelegate(CallBackFunction);
+            // Convert callback_delegate into a function pointer that can be
+            // used in unmanaged code.
+            IntPtr intptr_delegate =
+                Marshal.GetFunctionPointerForDelegate(callback_delegate);
+            // Call the API passing along the function pointer.
+            SetDebugFunction(intptr_delegate);
+        }
 
         public static void MonitorShaders(string sourcePath)
         {
