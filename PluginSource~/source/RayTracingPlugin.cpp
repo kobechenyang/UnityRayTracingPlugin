@@ -34,6 +34,8 @@ extern "C" void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnit
     s_Graphics = s_UnityInterfaces->Get<IUnityGraphics>();
     s_Graphics->RegisterDeviceEventCallback(OnGraphicsDeviceEvent);
 
+    Debug("UnityPluginLoad " + s_Graphics->GetRenderer());
+
 #if SUPPORT_VULKAN
     if (s_Graphics->GetRenderer() == kUnityGfxRendererNull)
     {

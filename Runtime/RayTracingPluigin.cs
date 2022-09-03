@@ -137,13 +137,17 @@ namespace PixelsForGlory.RayTracing
         public static GetRayTracerStatisticsDel GetRayTracerStatistics = null;
         public delegate RayTracerStatistics GetRayTracerStatisticsDel();
 
-        [PluginFunctionAttr("GetEventFunc")]
-        public static GetEventFuncDel GetEventFunc = null;
-        public delegate IntPtr GetEventFuncDel();
+        // [PluginFunctionAttr("GetEventFunc")]
+        // public static GetEventFuncDel GetEventFunc = null;
+        // public delegate IntPtr GetEventFuncDel();
 
-        [PluginFunctionAttr("GetEventAndDataFunc")]
-        public static GetEventAndDataFuncDel GetEventAndDataFunc = null;
-        public delegate IntPtr GetEventAndDataFuncDel();
+        // [PluginFunctionAttr("GetEventAndDataFunc")]
+        // public static GetEventAndDataFuncDel GetEventAndDataFunc = null;
+        // public delegate IntPtr GetEventAndDataFuncDel();
+        [DllImport("RayTracingPlugin")]
+        public static extern IntPtr GetEventFunc();
+        [DllImport("RayTracingPlugin")]
+        public static extern IntPtr GetEventAndDataFunc();
 
         [PluginFunctionAttr("SetDebugFunction")]
         public static SetDebugFunctionDel SetDebugFunction = null;
